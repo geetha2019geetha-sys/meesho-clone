@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Shop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Playwrite+NO:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+  
+</style>
+<body>
+<!-- HEADER -->
+<div class="header">
+
+    <!-- TOP NAV -->
+    <div class="top-nav">
+
+        <!-- LOGO + TITLE -->
+        <div class="logo-section">
+            <img src="..//img/logo.jpg" class="logo">
+            <h1>Viji Boutique</h1>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right-menu">
+
+            <div class="menu-item">
+                👤
+                <p>Profile</p>
+            </div>
+
+            <div class="menu-item">
+                🛒
+                <p><button onclick="viewCart()" class="cart-btn">🛒 Add to Cart</button></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="category-menu">
+        <p onclick="scrollToSection('saree-section')">Popular</p>
+           <p onclick="scrollToSection('saree-section')">Saree</p>
+
+    <p onclick="scrollToSection('kurti-section')">Kurti</p>
+
+    <p onclick="scrollToSection('jewel-section')">Jewellery</p>
+
+    <p onclick="scrollToSection('shoes-section')">Shoes</p>
+    <p onclick="scrollToSection('beauty-section')">Beauty</p>
+        <p onclick="scrollToSection('jewel-section')">Bags & Accessories</p>
+    </div>
+
+</div>
+
+<div class="searchbar">
+      <div>
+        <input type="text" id="search" placeholder="Search products...">
+    </div>
+<div>
+
+  <!-- ✅ NEW SECTION -->
+  <!-- SAREE SECTION -->
+<h2 id="saree-section">Saree Collection</h2>
+<div id="saree" class="products"></div>
+
+<!-- KURTI SECTION -->
+<h2 id="kurti-section">Kurti Collection</h2>
+<div id="kurti" class="products"></div>
+
+
+
+<!-- DRESS SECTION -->
+<h2 id="ear-section">Earring Collection</h2>
+<div id="ear" class="products"></div>
+
+<!-- JEWELLERY SECTION -->
+<h2 id="jewel-section">Jewellery Collection</h2>
+<div id="jewel" class="products"></div>
+
+<!-- SHOES SECTION -->
+<h2 id="shoes-section">Shoes Collection</h2>
+<div id="shoes" class="products"></div>
+<!--BEAUTY SECTION-->
+
+<h2 id="beauty-section">Beauty Collection</h2>
+<div id="beauty" class="products"></div>
+<h2>Enter Your Details</h2>
+
+<input type="text" id="name" placeholder="Enter your name"><br><br>
+<input type="text" id="address" placeholder="Enter your address"><br><br>
+<input type="text" id="phone" placeholder="Enter your phone"><br><br>
+<input type="text" id="product id" placeholder="Enter your product id"><br><br>
+
+<button onclick="viewCart()">View Cart</button>
+
+<script src="script.js"></script>
+</body>
+</html>

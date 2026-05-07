@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+
+ <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Poppins;
+}
+
+
+.header{
+    width:100%;
+    background:linear-gradient(to right,#f8e7ff,#f3d9ff);
+    border-bottom:1px solid #ddd;
+    margin-bottom:40px;
+}
+
+/* TOP NAV */
+.top-nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px 40px;
+    position:relative;
+}
+
+/* LOGO SECTION */
+.logo-section{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+/* LOGO */
+.logo{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* TITLE */
+.logo-section h1{
+    font-size:60px;
+    color:purple;
+}
+/* RIGHT MENU */
+.right-menu{
+    position:absolute;
+    right:40px;
+    display:flex;
+    gap:30px;
+}
+
+.menu-item{
+    text-align:center;
+    font-size:18px;
+}
+
+
+body{
+    background:#f8f2ff;
+    padding:30px;
+}
+
+/* TITLE */
+h2{
+    text-align:center;
+    color:purple;
+    font-size:45px;
+    margin-bottom:30px;
+}
+
+/* CART ITEMS */
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* PRODUCT IMAGE */
+img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+/* PRODUCT DETAILS */
+.item p{
+    font-size:18px;
+    line-height:1.8;
+}
+
+/* BUTTONS */
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+/* DELETE */
+.item button{
+    background:red;
+    color:white;
+}
+
+/* TOTAL */
+#totalPrice{
+    text-align:right;
+    margin-top:20px;
+    font-size:30px;
+    color:purple;
+}
+
+/* BUY BUTTON */
+.buyBtn{
+    width:100%;
+    background:green;
+    color:white;
+    padding:16px;
+    margin-top:25px;
+    font-size:20px;
+    border-radius:10px;
+}
+
+/* BACK BUTTON */
+.backBtn{
+    width:100%;
+    background:black;
+    color:white;
+    padding:16px;
+    margin-top:15px;
+    font-size:20px;
+    border-radius:10px;
+}
+
+/* FORM */
+.buyForm{
+    display:none;
+    background:white;
+    padding:30px;
+    margin-top:30px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* INPUTS */
+.buyForm input{
+    width:100%;
+    padding:14px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+/* PLACE ORDER */
+.buyForm button{
+    width:100%;
+    background:purple;
+    color:white;
+    padding:15px;
+    font-size:18px;
+}
+
+/* MOBILE */
+@media screen and (max-width:768px){
+
+    .item{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    #totalPrice{
+        text-align:center;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+<div class="header">
+
+    <!-- TOP NAV -->
+    <div class="top-nav">
+
+        <!-- LOGO + TITLE -->
+        <div class="logo-section">
+            <img src="..//img/logo.jpg" class="logo">
+            <h1>Viji Boutique</h1>
+        </div>
+
+         <!-- RIGHT SIDE -->
+        <div class="right-menu">
+
+            <div class="menu-item">
+                👤
+                <p>Profile</p>
+            </div>
+          </div>
+      </div>
+  </div>
+
+<h2>🛒 Your Cart</h2>
+
+<div id="cartItems"></div>
+
+<h3 id="totalPrice">Total: ₹0</h3>
+
+<!-- ⭐ BUY ALL -->
+<button class="buyBtn" onclick="buyAll()">🛍 Buy Now (All Items)</button>
+
+<button onclick="goBack()" class="backBtn">⬅ Back to Shop</button>
+
+<!-- 🛍 FORM -->
+<div class="buyForm" id="buyForm">
+
+  <h3>Enter Details</h3>
+
+  <input type="text" id="name" placeholder="Name"><br><br>
+  <input type="text" id="address" placeholder="Address"><br><br>
+  <input type="text" id="phone" placeholder="Phone"><br><br>
+
+  <div id="orderSummary"></div>
+
+  <button onclick="placeOrder()">Place Order</button>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+let cartData = [];
+
+// 🛒 LOAD CART
+function loadCart() {
+  cartData = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let container = document.getElementById("cartItems");
+  container.innerHTML = "";
+
+  let total = 0;
+
+  cartData.forEach((item, index) => {
+    total += item.price;
+
+    let div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+      <div style="display:flex; align-items:center; gap:10px;">
+        <img src="${item.img}">
+        <p>
+  <b>ID:</b> ${item.id} <br>
+  ${item.name} - ₹${item.price}
+</p>
+      </div>
+
+      <div>
+        <button onclick="deleteItem(${index})">🗑 Delete</button>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+
+  document.getElementById("totalPrice").innerText = "Total: ₹" + total;
+}
+
+// 🗑 DELETE ITEM
+function deleteItem(index) {
+  cartData.splice(index, 1);
+
+  localStorage.setItem("cart", JSON.stringify(cartData));
+
+  loadCart();
+}
+
+// 🛍 BUY ALL
+function buyAll() {
+
+  if (cartData.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
+
+  document.getElementById("buyForm").style.display = "block";
+
+  let summary = "<h4>Order Summary:</h4>";
+
+  cartData.forEach(item => {
+    summary += `
+  <p>
+    <b>ID:</b> ${item.id} <br>
+    ${item.name} - ₹${item.price}
+  </p>
+  <img src="${item.img}" width="60"><br>
+`;
+  });
+
+  document.getElementById("orderSummary").innerHTML = summary;
+}
+
+// 📦 PLACE ORDER
+function placeOrder() {
+
+  let name = document.getElementById("name").value;
+  let address = document.getElementById("address").value;
+  let phone = document.getElementById("phone").value;
+
+  if (!name || !address || !phone) {
+    alert("Please fill all details");
+    return;
+  }
+
+  alert("Order placed successfully 🎉");
+
+  localStorage.removeItem("cart");
+
+  window.location.href = "index.html";
+}
+
+// 🔙 BACK
+function goBack() {
+  window.location.href = "index.html";
+}
+
+loadCart();
+
+</script>
+
+</body>
+</html>
