@@ -71,38 +71,32 @@ h1{
 
 <script>
 
-fetch("http://localhost:5000/orders")
-
-.then(res => res.json())
-
-.then(data => {
+fetch("https://meesho-backend-92x8.onrender.com/orders")
+  .then(res => res.json())
+  .then(data => {
 
     const container = document.getElementById("ordersList");
 
+    container.innerHTML = ""; // clear old data
+
     data.forEach(order => {
 
-        const div = document.createElement("div");
+      const div = document.createElement("div");
 
-        div.className = "order-card";
+      div.className = "order-card";
 
-        div.innerHTML = `
-        
+      div.innerHTML = `
         <p><b>Name:</b> ${order.name}</p>
-
         <p><b>Address:</b> ${order.address}</p>
-
         <p><b>Phone:</b> ${order.phone}</p>
-
         <p><b>Product ID:</b> ${order.productId}</p>
+      `;
 
-        `;
-
-        container.appendChild(div);
-
+      container.appendChild(div);
     });
 
-});
-
+  })
+  .catch(err => console.log(err));
 </script>
 
 </body>

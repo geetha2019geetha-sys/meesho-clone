@@ -212,14 +212,14 @@ function buyNow(productId) {
     phone
   };
 
-  fetch("http://localhost:5000/order", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(orderData)
-  })
-    .then(res => res.json())
-    .then(() => alert("Order Placed Successfully"))
-    .catch(err => console.log(err));
+  fetch("https://meesho-backend-92x8.onrender.com/order", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(orderData)
+})
+  .then(res => res.json())
+  .then(() => alert("Order Placed Successfully"))
+  .catch(err => console.log(err));
 }
