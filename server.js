@@ -6,27 +6,36 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// temporary storage (works on Render)
+// 🟢 temporary storage (IMPORTANT: resets when server restarts)
 let orders = [];
 
-// home route
+// 🏠 home route
 app.get("/", (req, res) => {
   res.send("Server is working");
 });
 
-// save order
+// 🟢 save order
 app.post("/order", (req, res) => {
-  orders.push(req.body);
-  console.log("Order saved:", req.body);
+  const order = req.body;
 
-  res.json({ message: "Order saved successfully" });
+  orders.push(order);
+
+  console.log("Order saved:", order);
+
+  res.json({
+    message: "Order saved successfully",
+    order
+  });
 });
 
-// get orders
+// 🟢 get all orders
 app.get("/orders", (req, res) => {
   res.json(orders);
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+// 🚨 IMPORTANT FIX FOR RENDER
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });

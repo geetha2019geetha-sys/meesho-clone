@@ -164,44 +164,42 @@ function placeOrder() {
 
     const productId = params.get("id");
 
+    if (!productId) {
+        alert("Product ID missing!");
+        return;
+    }
+
     const name = document.getElementById("name").value;
-
     const address = document.getElementById("address").value;
-
     const phone = document.getElementById("phone").value;
 
     if (!name || !address || !phone) {
-
         alert("Please fill all details");
         return;
     }
 
     const orderData = {
-        productId,
+        productId: Number(productId),   // ✅ FIX HERE
         name,
         address,
         phone
     };
 
-    fetch("http://localhost:5000/order", {
-
+    fetch("https://meesho-backend-92x8.onrender.com/order", {
         method: "POST",
-
         headers: {
             "Content-Type": "application/json"
         },
-
         body: JSON.stringify(orderData)
-
     })
 
     .then(res => res.json())
-
-    .then(() => alert("Order Placed Successfully 🎉"))
-
+    .then(() => {
+        alert("Order Placed Successfully 🎉");
+        window.location.href = "index.html";
+    })
     .catch(err => console.log(err));
 }
-
 
 function goBack(){
 

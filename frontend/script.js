@@ -195,9 +195,7 @@ document.getElementById("search").addEventListener("keyup", function () {
 function buyNow(productId) {
   window.location.href = "contact.html?id=" + productId;
 
-  const name = document.getElementById("name").value;
-  const address = document.getElementById("address").value;
-  const phone = document.getElementById("phone").value;
+ 
   if (!name || !address || !phone) {
     alert("Please fill all details");
     return;
